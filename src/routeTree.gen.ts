@@ -9,12 +9,66 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as User_agreementRouteImport } from './routes/user_agreement'
+import { Route as Privacy_policyRouteImport } from './routes/privacy_policy'
+import { Route as PostRouteImport } from './routes/post'
+import { Route as Guest_controlsRouteImport } from './routes/guest_controls'
+import { Route as Cookie_policyRouteImport } from './routes/cookie_policy'
+import { Route as Community_guidelinesRouteImport } from './routes/community_guidelines'
+import { Route as Brand_policyRouteImport } from './routes/brand_policy'
+import { Route as AccessibilityRouteImport } from './routes/accessibility'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as Copyright_policyRouteImport } from './routes/Copyright_policy'
 import { Route as IndexRouteImport } from './routes/index'
 
+const User_agreementRoute = User_agreementRouteImport.update({
+  id: '/user_agreement',
+  path: '/user_agreement',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Privacy_policyRoute = Privacy_policyRouteImport.update({
+  id: '/privacy_policy',
+  path: '/privacy_policy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PostRoute = PostRouteImport.update({
+  id: '/post',
+  path: '/post',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Guest_controlsRoute = Guest_controlsRouteImport.update({
+  id: '/guest_controls',
+  path: '/guest_controls',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Cookie_policyRoute = Cookie_policyRouteImport.update({
+  id: '/cookie_policy',
+  path: '/cookie_policy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Community_guidelinesRoute = Community_guidelinesRouteImport.update({
+  id: '/community_guidelines',
+  path: '/community_guidelines',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Brand_policyRoute = Brand_policyRouteImport.update({
+  id: '/brand_policy',
+  path: '/brand_policy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AccessibilityRoute = AccessibilityRouteImport.update({
+  id: '/accessibility',
+  path: '/accessibility',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Copyright_policyRoute = Copyright_policyRouteImport.update({
+  id: '/Copyright_policy',
+  path: '/Copyright_policy',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -25,37 +79,170 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/Copyright_policy': typeof Copyright_policyRoute
   '/about': typeof AboutRoute
+  '/accessibility': typeof AccessibilityRoute
+  '/brand_policy': typeof Brand_policyRoute
+  '/community_guidelines': typeof Community_guidelinesRoute
+  '/cookie_policy': typeof Cookie_policyRoute
+  '/guest_controls': typeof Guest_controlsRoute
+  '/post': typeof PostRoute
+  '/privacy_policy': typeof Privacy_policyRoute
+  '/user_agreement': typeof User_agreementRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/Copyright_policy': typeof Copyright_policyRoute
   '/about': typeof AboutRoute
+  '/accessibility': typeof AccessibilityRoute
+  '/brand_policy': typeof Brand_policyRoute
+  '/community_guidelines': typeof Community_guidelinesRoute
+  '/cookie_policy': typeof Cookie_policyRoute
+  '/guest_controls': typeof Guest_controlsRoute
+  '/post': typeof PostRoute
+  '/privacy_policy': typeof Privacy_policyRoute
+  '/user_agreement': typeof User_agreementRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/Copyright_policy': typeof Copyright_policyRoute
   '/about': typeof AboutRoute
+  '/accessibility': typeof AccessibilityRoute
+  '/brand_policy': typeof Brand_policyRoute
+  '/community_guidelines': typeof Community_guidelinesRoute
+  '/cookie_policy': typeof Cookie_policyRoute
+  '/guest_controls': typeof Guest_controlsRoute
+  '/post': typeof PostRoute
+  '/privacy_policy': typeof Privacy_policyRoute
+  '/user_agreement': typeof User_agreementRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about'
+  fullPaths:
+    | '/'
+    | '/Copyright_policy'
+    | '/about'
+    | '/accessibility'
+    | '/brand_policy'
+    | '/community_guidelines'
+    | '/cookie_policy'
+    | '/guest_controls'
+    | '/post'
+    | '/privacy_policy'
+    | '/user_agreement'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about'
-  id: '__root__' | '/' | '/about'
+  to:
+    | '/'
+    | '/Copyright_policy'
+    | '/about'
+    | '/accessibility'
+    | '/brand_policy'
+    | '/community_guidelines'
+    | '/cookie_policy'
+    | '/guest_controls'
+    | '/post'
+    | '/privacy_policy'
+    | '/user_agreement'
+  id:
+    | '__root__'
+    | '/'
+    | '/Copyright_policy'
+    | '/about'
+    | '/accessibility'
+    | '/brand_policy'
+    | '/community_guidelines'
+    | '/cookie_policy'
+    | '/guest_controls'
+    | '/post'
+    | '/privacy_policy'
+    | '/user_agreement'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  Copyright_policyRoute: typeof Copyright_policyRoute
   AboutRoute: typeof AboutRoute
+  AccessibilityRoute: typeof AccessibilityRoute
+  Brand_policyRoute: typeof Brand_policyRoute
+  Community_guidelinesRoute: typeof Community_guidelinesRoute
+  Cookie_policyRoute: typeof Cookie_policyRoute
+  Guest_controlsRoute: typeof Guest_controlsRoute
+  PostRoute: typeof PostRoute
+  Privacy_policyRoute: typeof Privacy_policyRoute
+  User_agreementRoute: typeof User_agreementRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/user_agreement': {
+      id: '/user_agreement'
+      path: '/user_agreement'
+      fullPath: '/user_agreement'
+      preLoaderRoute: typeof User_agreementRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy_policy': {
+      id: '/privacy_policy'
+      path: '/privacy_policy'
+      fullPath: '/privacy_policy'
+      preLoaderRoute: typeof Privacy_policyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/post': {
+      id: '/post'
+      path: '/post'
+      fullPath: '/post'
+      preLoaderRoute: typeof PostRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/guest_controls': {
+      id: '/guest_controls'
+      path: '/guest_controls'
+      fullPath: '/guest_controls'
+      preLoaderRoute: typeof Guest_controlsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cookie_policy': {
+      id: '/cookie_policy'
+      path: '/cookie_policy'
+      fullPath: '/cookie_policy'
+      preLoaderRoute: typeof Cookie_policyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/community_guidelines': {
+      id: '/community_guidelines'
+      path: '/community_guidelines'
+      fullPath: '/community_guidelines'
+      preLoaderRoute: typeof Community_guidelinesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/brand_policy': {
+      id: '/brand_policy'
+      path: '/brand_policy'
+      fullPath: '/brand_policy'
+      preLoaderRoute: typeof Brand_policyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/accessibility': {
+      id: '/accessibility'
+      path: '/accessibility'
+      fullPath: '/accessibility'
+      preLoaderRoute: typeof AccessibilityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/about': {
       id: '/about'
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/Copyright_policy': {
+      id: '/Copyright_policy'
+      path: '/Copyright_policy'
+      fullPath: '/Copyright_policy'
+      preLoaderRoute: typeof Copyright_policyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -70,7 +257,16 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  Copyright_policyRoute: Copyright_policyRoute,
   AboutRoute: AboutRoute,
+  AccessibilityRoute: AccessibilityRoute,
+  Brand_policyRoute: Brand_policyRoute,
+  Community_guidelinesRoute: Community_guidelinesRoute,
+  Cookie_policyRoute: Cookie_policyRoute,
+  Guest_controlsRoute: Guest_controlsRoute,
+  PostRoute: PostRoute,
+  Privacy_policyRoute: Privacy_policyRoute,
+  User_agreementRoute: User_agreementRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
