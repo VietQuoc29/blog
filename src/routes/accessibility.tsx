@@ -1,6 +1,5 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
 
-// Khai báo Route cho TanStack
 export const Route = createFileRoute('/accessibility')({
   component: AccessibilityPage,
 });
@@ -8,9 +7,7 @@ export const Route = createFileRoute('/accessibility')({
 function AccessibilityPage() {
   return (
     <div className="flex flex-col min-h-screen bg-white font-sans text-gray-900">
-      
-      {/* ===== HEADER RIÊNG CHO TRANG ACCESSIBILITY ===== */}
-      {/* Trang này chỉ hiển thị logo LinkedIn, không có menu hay chữ blog */}
+
       <header className="sticky top-0 z-[100] w-full bg-white">
         <div className="w-full border-b border-gray-200">
           <div className="max-w-[1128px] mx-auto px-4 md:px-6 h-[52px] md:h-[64px] flex items-center">
@@ -25,14 +22,11 @@ function AccessibilityPage() {
         </div>
       </header>
 
-      {/* ===== NỘI DUNG CHÍNH (BODY) ===== */}
       <main className="flex-grow w-full pb-20">
         
-        {/* KHU VỰC HERO: Giới thiệu & Hình ảnh */}
         <section className="max-w-[900px] mx-auto px-4 md:px-6 pt-12 md:pt-20 pb-12">
           <div className="flex flex-col md:flex-row items-center md:items-start gap-10">
             
-            {/* Cột trái: Văn bản */}
             <div className="flex-1 space-y-6">
               <h1 className="text-[28px] md:text-[40px] font-light text-gray-900 leading-tight">
                 LinkedIn is a place where every member of the global workforce can find opportunity
@@ -52,7 +46,6 @@ function AccessibilityPage() {
               </div>
             </div>
 
-            {/* Cột phải: Hình ảnh minh họa */}
             <div className="w-full md:w-[300px] flex-shrink-0">
               <img 
                 src="https://images.unsplash.com/photo-1573164713988-8665fc963095?auto=format&fit=crop&w=400&q=80" 
@@ -64,13 +57,10 @@ function AccessibilityPage() {
           </div>
         </section>
 
-        {/* KHU VỰC CÁC THẺ NỘI DUNG (CARDS) */}
         <section className="max-w-[900px] mx-auto px-4 md:px-6 space-y-6">
           
-          {/* Card 1: Our Disability Answer Desk */}
           <div className="border border-gray-200 rounded-xl p-6 md:p-10 flex flex-col md:flex-row gap-6">
             <div className="flex-shrink-0 text-[#f5c553]">
-              {/* Icon bong bóng chat */}
               <svg className="w-10 h-10" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.2L4 17.2V4h16v12z"/>
                 <path d="M7 9h10v2H7zm0-3h10v2H7z"/>
@@ -90,10 +80,8 @@ function AccessibilityPage() {
             </div>
           </div>
 
-          {/* Card 2: Accessibility @ LinkedIn */}
           <div className="border border-gray-200 rounded-xl p-6 md:p-10 flex flex-col md:flex-row gap-6">
             <div className="flex-shrink-0 text-[#e06b55]">
-              {/* Icon mục tiêu (Bullseye) */}
               <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="1.5">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M15.042 21.672L13.684 16.6m0 0l-2.51 2.225.569-9.47 5.227 7.917-3.286-.672zM12 2.25V4.5m5.834.166l-1.591 1.591M20.25 10.5H18M7.757 14.743l-1.59 1.59M6 10.5H3.75m4.007-4.243l-1.59-1.59" />
                 <circle cx="12" cy="12" r="3" />
@@ -126,10 +114,8 @@ function AccessibilityPage() {
             </div>
           </div>
 
-          {/* Card 3: Want even more info? */}
           <div className="border border-gray-200 rounded-xl p-6 md:p-10 flex flex-col md:flex-row gap-6">
             <div className="flex-shrink-0 text-[#f5c553]">
-              {/* Icon văn bản */}
               <svg className="w-10 h-10" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
               </svg>
@@ -145,7 +131,6 @@ function AccessibilityPage() {
         </section>
       </main>
 
-      {/* ===== FOOTER NỀN TRẮNG ĐƯỢC YÊU CẦU ===== */}
       <footer className="w-full bg-white py-4 border-t border-black mt-auto">
         <div className="max-w-[1128px] mx-auto px-4 md:px-6">
           <ul className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-[12px] font-semibold text-[#666666]">

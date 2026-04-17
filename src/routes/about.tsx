@@ -7,7 +7,7 @@ const infoCards = [
   {
     title: 'Products and services',
     desc: 'Grow your business with our unique mix of products.',
-    imageUrl: 'https://images.unsplash.com/photo-1573164713988-8665fc963095?auto=format&fit=crop&w=400&q=80', // Thay bằng ảnh thật
+    imageUrl: 'https://images.unsplash.com/photo-1573164713988-8665fc963095?auto=format&fit=crop&w=400&q=80',
     link: '#',
   },
   {
@@ -36,7 +36,6 @@ function About() {
   return (
     <div className="flex flex-col min-h-screen bg-white font-sans text-gray-900">
       
-      {/* ===== HEADER TƯƠNG TỰ TRANG CHỦ ===== */}
       <header className="sticky top-0 z-[100] w-full bg-white">
         <div className="w-full border-b border-[#ebebeb]">
           <div className="max-w-[1128px] mx-auto px-4 md:px-6 h-[52px] md:h-[64px] flex items-center justify-between">
@@ -52,18 +51,14 @@ function About() {
         </div>
       </header>
 
-      {/* ===== NỘI DUNG CHÍNH (BODY) ===== */}
       <main className="flex-grow w-full">
         
-        {/* KHU VỰC HERO - CÓ HOA VĂN MỜ PHÍA SAU */}
-        {/* Để giả lập hoa văn background của LinkedIn, ta dùng background SVG nhẹ nhàng */}
         <section className="relative w-full py-16 md:py-24 overflow-hidden bg-white">
           <div className="absolute inset-0 z-0 opacity-5 pointer-events-none" 
                style={{ backgroundImage: 'radial-gradient(#0a66c2 1px, transparent 1px)', backgroundSize: '40px 40px' }}>
           </div>
           
           <div className="relative z-10 max-w-[800px] mx-auto px-6 text-center">
-            {/* Icon "in" màu xanh đặc trưng */}
             <div className="flex justify-center mb-6">
               <div className="bg-[#0a66c2] text-white font-bold text-3xl px-2 py-0.5 rounded-sm tracking-tight flex items-center justify-center">
                 in
@@ -80,10 +75,8 @@ function About() {
           </div>
         </section>
 
-        {/* KHU VỰC TẦM NHÌN, SỨ MỆNH (CĂN GIỮA) */}
         <section className="max-w-[800px] mx-auto px-6 py-10 md:py-16 text-center space-y-16 md:space-y-24">
           
-          {/* Vision */}
           <div>
             <h2 className="text-[28px] md:text-[36px] font-light text-gray-900 mb-4">Vision</h2>
             <p className="text-[16px] md:text-[18px] font-light text-gray-700">
@@ -91,7 +84,6 @@ function About() {
             </p>
           </div>
 
-          {/* Mission */}
           <div>
             <h2 className="text-[28px] md:text-[36px] font-light text-gray-900 mb-4">Mission</h2>
             <p className="text-[16px] md:text-[18px] font-light text-gray-700">
@@ -99,7 +91,6 @@ function About() {
             </p>
           </div>
 
-          {/* Who are we? */}
           <div>
             <h2 className="text-[28px] md:text-[36px] font-light text-gray-900 mb-6">Who are we?</h2>
             <div className="text-[15px] md:text-[16px] text-gray-700 space-y-6 leading-relaxed max-w-3xl mx-auto text-left md:text-center">
@@ -114,14 +105,12 @@ function About() {
 
         </section>
 
-        {/* KHU VỰC THẺ THÔNG TIN (INFO CARDS) LÊN NỀN XÁM NHẠT */}
         <section className="w-full bg-[#f8fafc] py-16 md:py-24 mt-10">
           <div className="max-w-[1128px] mx-auto px-6">
             <h2 className="text-[24px] md:text-[32px] font-light text-gray-900 mb-10 text-left">
               For more information about our company
             </h2>
             
-            {/* Lưới 4 cột trên Desktop, 1 cột trên Mobile */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {infoCards.map((card, index) => (
                 <div key={index} className="flex flex-col group">

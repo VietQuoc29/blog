@@ -32,16 +32,11 @@ function App() {
   const [currentPage, setCurrentPage] = useState(1);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const postsSectionRef = useRef<HTMLElement>(null);
-  
-  // ==========================================
-  // VƯỢT RÀO TANSTACK ROUTER VỚI "strict: false"
-  // Đọc thẳng biến từ URL bất chấp file cấu hình
+
   const searchParams = useSearch({ strict: false }) as { tag?: string };
   const selectedTag = searchParams.tag;
   const navigate = useNavigate({ strict: false });
-  // ==========================================
 
-  // Lọc bài viết
   const filteredPosts = selectedTag 
     ? mockPosts.filter((post) => post.tag === selectedTag)
     : mockPosts;
@@ -51,7 +46,7 @@ function App() {
   const currentPosts = filteredPosts.slice(startIndex, startIndex + POSTS_PER_PAGE);
 
   const handleTagClick = (tagName: string | undefined) => {
-    navigate({ search: { tag: tagName } }); // Ghi tag lên URL
+    navigate({ search: { tag: tagName } });
     setCurrentPage(1);
     
     if (postsSectionRef.current) {
@@ -157,7 +152,6 @@ function App() {
 
           {currentPosts.length === 0 && <div className="text-center py-20 text-gray-500 text-lg">No posts found for this category.</div>}
 
-          {/* Phân trang */}
           {totalPages > 1 && (
             <div className="mt-20 border-t border-gray-200 pt-8 flex items-start justify-between text-[15px]">
               <button onClick={handlePrevious} disabled={currentPage === 1} className={`flex items-center font-medium focus:outline-none mt-1 transition-colors ${currentPage === 1 ? 'text-gray-300 cursor-not-allowed' : 'text-gray-600 hover:text-black cursor-pointer'}`}>
