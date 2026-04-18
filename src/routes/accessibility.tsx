@@ -143,18 +143,9 @@ function AccessibilityPage() {
               <span className="font-normal mt-[1px] ml-2 text-gray-500">© 2026</span>
             </li>
             {[
-              'About', 'Accessibility', 'User Agreement', 'Privacy Policy', 
-              'Cookie Policy', 'Copyright Policy', 'Brand Policy', 
-              'Guest Controls', 'Community Guidelines'
-            ].map((name) => (
-              <li key={name} className="whitespace-nowrap">
-                <Link
-                  to={name === 'About' ? '/about' : name === 'Accessibility' ? '/accessibility' : '/'}
-                  className="hover:text-[#0a66c2] hover:underline transition-colors text-[#666666]"
-                >
-                  {name}
-                </Link>
-              </li>
+              { name: 'About', path: '/about' }, { name: 'Accessibility', path: '/accessibility' }, { name: 'User Agreement', path: '/user_agreement' }, { name: 'Privacy Policy', path: '/privacy_policy' }, { name: 'Cookie Policy', path: '/cookie_policy' }, { name: 'Copyright Policy', path: '/copyright_policy' }, { name: 'Brand Policy', path: '/brand_policy' }, { name: 'Guest Controls', path: '/guest_controls' }, { name: 'Community Guidelines', path: '/community_guidelines' },
+            ].map((item) => (
+              <li key={item.name} className="whitespace-nowrap"><Link to={item.path} className="hover:text-[#0a66c2] hover:underline transition-colors text-[#666666]">{item.name}</Link></li>
             ))}
             <li className="whitespace-nowrap ml-1">
               <button className="flex items-center hover:text-[#0a66c2] hover:underline transition-colors focus:outline-none group text-[#666666]">
