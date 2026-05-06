@@ -1,34 +1,45 @@
 import { createFileRoute, Link, useSearch, useNavigate } from '@tanstack/react-router';
 import { useState, useRef } from 'react';
 
+type DbPost = {
+  _id: string;
+  title: string;
+  slug: string;
+  author: string;
+  createdAt: string;
+  tag?: string;
+  imageUrl?: string;
+};
+
 export const Route = createFileRoute('/')({
   validateSearch: (search: Record<string, unknown>) => {
     return {
       tag: (search.tag as string) || undefined,
     };
   },
+  loader: async () => {
+    const response = await fetch('http://localhost:5000/api/posts');
+    if (!response.ok) throw new Error('Không thể tải bài viết');
+    return response.json() as Promise<DbPost[]>;
+  },
   component: App,
 });
 
 const NAV_TAGS = ['Product updates', 'Member stories', 'Creators', 'Platform Information', 'Trust and Safety'];
-
-const basePosts = [
-  { imageUrl: 'https://images.unsplash.com/photo-1573164713988-8665fc963095?auto=format&fit=crop&w=800&q=80', tag: 'Product updates', title: 'Updates to our Professional Community Policies', author: '', date: 'Nov 6, 2023' },
-  { imageUrl: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80', tag: 'Trust and Safety', title: "Updates to LinkedIn's Terms of Service", author: 'Blake Lawit', date: 'Sep 18, 2024' },
-  { imageUrl: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=800&q=80', tag: 'Platform Information', title: "Sharing LinkedIn's Responsible AI Principles", author: 'Blake Lawit', date: 'Feb 22, 2023' },
-  { imageUrl: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80', tag: 'Member stories', title: 'Mythbusting the Feed: How We Work to Address Bias', author: 'Imani Dunbar', date: 'Nov 1, 2022' },
-  { imageUrl: 'https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=800&q=80', tag: 'Creators', title: 'New LinkedIn profile features help verify identity, detect and...', author: 'Oscar Rodriguez', date: 'Oct 25, 2022' },
-  { imageUrl: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=800&q=80', tag: 'Product updates', title: 'Mythbusting the Feed: How the Algorithm Works', author: 'Manisha Sharma', date: 'Aug 18, 2022' },
-];
-
-const mockPosts = Array.from({ length: 95 }, (_, index) => {
-  const base = basePosts[index % basePosts.length];
-  return { ...base, id: index + 1, title: `${base.title}` };
-});
-
 const POSTS_PER_PAGE = 9;
 
 function App() {
+  const fetchedPosts = Route.useLoaderData();
+
+  const posts = fetchedPosts.map(post => ({
+    id: post.slug,
+    title: post.title,
+    author: post.author,
+    date: new Date(post.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+    tag: post.tag || 'Product updates',
+    imageUrl: post.imageUrl || 'https://images.unsplash.com/photo-1573164713988-8665fc963095?auto=format&fit=crop&w=800&q=80'
+  }));
+
   const [currentPage, setCurrentPage] = useState(1);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const postsSectionRef = useRef<HTMLElement>(null);
@@ -38,8 +49,8 @@ function App() {
   const navigate = useNavigate({ strict: false });
 
   const filteredPosts = selectedTag 
-    ? mockPosts.filter((post) => post.tag === selectedTag)
-    : mockPosts;
+    ? posts.filter((post) => post.tag === selectedTag)
+    : posts;
 
   const totalPages = Math.ceil(filteredPosts.length / POSTS_PER_PAGE);
   const startIndex = (currentPage - 1) * POSTS_PER_PAGE;
