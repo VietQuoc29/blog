@@ -1,104 +1,71 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { useState, useEffect } from 'react'
 
+type DbPost = {
+  _id: string;
+  title: string;
+  slug: string;
+  excerpt: string;
+  content: string;
+  author: string;
+  createdAt: string;
+  tag?: string;
+  imageUrl?: string;
+};
+
 export const Route = createFileRoute('/post')({
   validateSearch: (search: Record<string, unknown>) => {
     return {
-      id: Number(search.id) || 1,
+      id: (search.id as string) || '',
     }
+  },
+  loader: async () => {
+    const response = await fetch('http://localhost:5000/api/posts')
+    if (!response.ok) throw new Error('Error fetching posts')
+    return response.json() as Promise<DbPost[]>
   },
   component: BlogPost,
 })
 
-const basePostsData = [
-  {
-    tag: 'Product updates',
-    title: 'Updates to our Professional Community Policies',
-    author: '',
-    date: 'Nov 6, 2025',
-    imageUrl:
-      'https://images.unsplash.com/photo-1573164713988-8665fc963095?auto=format&fit=crop&w=1200&q=80',
-    content: [
-      'Our Professional Community Policies are clear: LinkedIn is a place for safe, trusted, and professional content. There are rare times, however, when content that violates our policies is educational or newsworthy enough that keeping it on the platform is in the public interest. We have updated our Professional Community Policies to provide clarity about the limited cases in which we would allow this content on the platform due to its educational or newsworthy value. This could be content ranging from medical procedures performed by a surgeon or real-world images of war shared for awareness or newsworthy purposes.',
-      'We conduct a careful review of content that may call for newsworthy treatment, balancing the potential harm of leaving it on the platform against the value to members and the public by allowing it. Factors we consider include educational value, relationship to major events of the day, the speaker or content author, and whether it concerns matters of public importance. When newsworthy content might be graphic or disturbing, we will include a warning screen.',
-    ],
-  },
-  {
-    tag: 'Trust and Safety',
-    title: "Updates to LinkedIn's Terms of Service",
-    author: 'Blake Lawit',
-    date: 'Sep 18, 2024',
-    imageUrl:
-      'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=1200&q=80',
-    content: [
-      'Trust is the foundation of everything we do at LinkedIn. To ensure our platform remains a safe and professional environment for our global workforce, we are rolling out updates to our Terms of Service.',
-      'These updates provide clearer guidelines on acceptable content, strengthen our stance against automated scraping, and offer more transparency regarding how your data is protected. We encourage all members to review the updated terms to understand how we are building a safer ecosystem.',
-    ],
-  },
-  {
-    tag: 'Platform Information',
-    title: "Sharing LinkedIn's Responsible AI Principles",
-    author: 'Blake Lawit',
-    date: 'Feb 22, 2023',
-    imageUrl:
-      'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=1200&q=80',
-    content: [
-      'Artificial Intelligence is transforming the way professionals connect and find opportunities. At LinkedIn, we are committed to developing AI technologies responsibly, guided by fairness, inclusivity, and transparency.',
-      'Our Responsible AI Principles serve as a compass for our engineering and product teams. They ensure that our algorithms mitigate bias, protect member privacy, and ultimately empower every member of the global workforce to achieve their goals safely.',
-    ],
-  },
-  {
-    tag: 'Member stories',
-    title: 'Mythbusting the Feed: How We Work to Address Bias',
-    author: 'Imani Dunbar',
-    date: 'Nov 1, 2022',
-    imageUrl:
-      'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=80',
-    content: [
-      'We often hear questions about how the LinkedIn Feed ranks content and whether certain voices are amplified over others. Today, we want to peel back the curtain and bust some common myths about bias in our algorithms.',
-      'Our engineering teams actively monitor and tune the Feed to ensure equitable distribution of content. We employ specialized models to detect and prevent algorithmic amplification of homogenous networks, striving to create a platform where diverse perspectives thrive.',
-    ],
-  },
-  {
-    tag: 'Creators',
-    title: 'New LinkedIn profile features help verify identity, detect and...',
-    author: 'Oscar Rodriguez',
-    date: 'Oct 25, 2022',
-    imageUrl:
-      'https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=1200&q=80',
-    content: [
-      'Your professional identity is your most valuable asset online. To help you protect it and stand out authentically, we are introducing new profile verification features.',
-      'Members can now verify their identity securely using trusted third-party partners. A verified badge will appear on your profile, signaling to recruiters and connections that you are exactly who you say you are, significantly reducing the risk of impersonation.',
-    ],
-  },
-  {
-    tag: 'Product updates',
-    title: 'Mythbusting the Feed: How the Algorithm Works',
-    author: 'Manisha Sharma',
-    date: 'Aug 18, 2022',
-    imageUrl:
-      'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1200&q=80',
-    content: [
-      'Have you ever wondered why you see a specific post at the top of your Feed? It’s not magic; it’s a combination of relevance, engagement, and your network connections.',
-      "The LinkedIn algorithm prioritizes content that sparks meaningful professional conversations. It looks at factors like your affinity with the creator, the topic's relevance to your skills, and the probability of you joining the discussion. Here is a deep dive into how you can optimize your posts for better reach.",
-    ],
-  },
-]
-
 function BlogPost() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const { id } = Route.useSearch()
+  
+  const fetchedPosts = Route.useLoaderData()
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }, [id])
 
-  const currentPost = basePostsData[(id - 1) % basePostsData.length]
+  const formattedPosts = fetchedPosts.map(post => ({
+    id: post.slug, 
+    tag: post.tag || 'Product updates',
+    title: post.title,
+    author: post.author,
+    date: new Date(post.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+    imageUrl: post.imageUrl || 'https://images.unsplash.com/photo-1573164713988-8665fc963095?auto=format&fit=crop&w=1200&q=80',
+    content: post.content ? post.content.split('\n').filter(p => p.trim() !== '') : [],
+  }))
 
-  const relatedPosts = basePostsData
-    .map((post, index) => ({ ...post, id: index + 1 }))
-    .filter((post) => post.id !== id)
-    .slice(0, 3)
+  const currentPost = formattedPosts.find(p => p.id === id) || formattedPosts[0]
+
+  const relatedPosts: typeof formattedPosts = [];
+  const usedTags = new Set();
+
+  for (const post of formattedPosts) {
+    if (post.id !== currentPost.id && !usedTags.has(post.tag)) {
+      relatedPosts.push(post);
+      usedTags.add(post.tag);
+    }
+    if (relatedPosts.length === 3) break;
+  }
+
+  if (relatedPosts.length < 3) {
+    const extraPosts = formattedPosts.filter(
+      (p) => p.id !== currentPost.id && !relatedPosts.some(rp => rp.id === p.id)
+    );
+    relatedPosts.push(...extraPosts.slice(0, 3 - relatedPosts.length));
+  }
 
   return (
     <div className="flex flex-col min-h-screen bg-white font-sans text-gray-900">
